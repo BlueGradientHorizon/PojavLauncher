@@ -79,13 +79,6 @@ public class ControlButton extends TextView implements ControlInterface {
         if (mIsToggled || (!mProperties.isToggle && isActivated())) {
             canvas.drawRoundRect(0, 0, getWidth(), getHeight(), mProperties.cornerRadius, mProperties.cornerRadius, mRectPaint);
         }
-        if (highlightingCanvasEnabled) {
-            Log.d("canvasDebug", "onDraw: debug button opacity is "+mProperties.opacity);
-            mRectPaint.setColor(Color.BLUE);
-            mRectPaint.setStyle(Paint.Style.STROKE);
-            mRectPaint.setStrokeWidth(5);
-            canvas.drawRect(0, 0, getWidth(), getHeight(), mRectPaint);
-        }
     }
 
     public void enableHighlightingCanvas(boolean action) {
