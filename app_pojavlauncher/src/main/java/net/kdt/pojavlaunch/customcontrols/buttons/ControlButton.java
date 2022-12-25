@@ -23,6 +23,7 @@ public class ControlButton extends TextView implements ControlInterface {
     private final Paint mRectPaint = new Paint();
     protected ControlData mProperties;
 
+    protected boolean highlightingCanvasEnabled;
     protected boolean mIsToggled = false;
     protected boolean mIsPointerOutOfBounds = false;
 
@@ -75,10 +76,23 @@ public class ControlButton extends TextView implements ControlInterface {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (mIsToggled || (!mProperties.isToggle && isActivated()))
+        if (mIsToggled || (!mProperties.isToggle && isActivated())) {
             canvas.drawRoundRect(0, 0, getWidth(), getHeight(), mProperties.cornerRadius, mProperties.cornerRadius, mRectPaint);
+        }
+        if (highlightingCanvasEnabled) {
+            Log.d("canvasDebug", "onDraw: debug button opacity is "+mProperties.opacity);
+            mRectPaint.setColor(Color.BLUE);
+            mRectPaint.setStyle(Paint.Style.STROKE);
+            mRectPaint.setStrokeWidth(5);
+            canvas.drawRect(0, 0, getWidth(), getHeight(), mRectPaint);
+        }
     }
 
+    public void enableHighlightingCanvas(boolean action) {
+        if (mProperties.name.equals("debug")) {
+            highlightingCanvasEnabled = action;
+        }
+    }
 
     public void loadEditValues(EditControlPopup editControlPopup){
         editControlPopup.loadValues(getProperties());

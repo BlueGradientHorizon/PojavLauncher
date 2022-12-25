@@ -48,6 +48,9 @@ public interface ControlInterface extends View.OnLongClickListener {
     /** Load the values and hide non useful forms */
     void loadEditValues(EditControlPopup editControlPopup);
 
+    /** Enable highlighting canvas of button if its opacity < 0.5f */
+    void enableHighlightingCanvas(boolean action);
+
 
     default ControlLayout getControlLayoutParent(){
         return (ControlLayout) getControlView().getParent();

@@ -3,6 +3,9 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.content.*;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.util.*;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
@@ -98,8 +101,13 @@ public class ControlLayout extends FrameLayout {
 	private void addControlView(ControlData controlButton) {
 		final ControlButton view = new ControlButton(this, controlButton);
 
+		if (view.getProperties().opacity < 0.5) {
+			Log.d("canvasDebug", "addControlView: highlighting canvas enabled");
+			view.enableHighlightingCanvas(true);
+			view.setBackground();
+		}
+		view.setAlpha(view.getProperties().opacity); // apply buttons opacity in editor mode too
 		if (!mModifiable) {
-			view.setAlpha(view.getProperties().opacity);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}
