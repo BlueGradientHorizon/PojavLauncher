@@ -79,14 +79,6 @@ public class ControlLayout extends FrameLayout {
 		//CONTROL BUTTON
 		for (ControlData button : controlLayout.mControlDataList) {
 			addControlView(button);
-			if (button.opacity < 0.5f) {
-				HighlightButtonView hbv = new HighlightButtonView(getContext());
-				hbv.setLayoutParams(new LinearLayout.LayoutParams((int) button.getWidth(), (int) button.getHeight()));
-				hbv.setX(button.insertDynamicPos(button.dynamicX));
-				hbv.setY(button.insertDynamicPos(button.dynamicY));
-				addView(hbv);
-				Log.d("canvasDebug", "loadLayout: hbv for btn "+button.name+" created");
-			}
 		}
 
 		//CONTROL DRAWER
