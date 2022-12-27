@@ -3,9 +3,6 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import static net.kdt.pojavlaunch.Tools.currentDisplayMetrics;
 
 import android.content.*;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.util.*;
 import android.view.*;
 import android.view.inputmethod.InputMethodManager;
