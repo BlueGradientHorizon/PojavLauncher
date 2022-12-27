@@ -98,10 +98,6 @@ public class ControlLayout extends FrameLayout {
 	private void addControlView(ControlData controlButton) {
 		final ControlButton view = new ControlButton(this, controlButton);
 
-		if (view.getProperties().opacity < 0.5) {
-			view.enableHighlightingCanvas(true);
-			view.setBackground();
-		}
 		view.setAlpha(view.getProperties().opacity); // apply buttons opacity in editor mode too
 		if (!mModifiable) {
 			view.setFocusable(false);
