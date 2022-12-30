@@ -77,12 +77,15 @@ public class ControlHandleView extends View {
                 setX(getX() + event.getX() - mXOffset);
                 setY(getY() + event.getY() - mYOffset);
 
-                System.out.println(getX() - mView.getControlView().getX());
-                System.out.println(getY() - mView.getControlView().getY());
+                float mWidth = getX() - mView.getControlView().getX();
+                float mHeight = getY() - mView.getControlView().getY();
 
+                System.out.println("mWidth="+ mWidth +" mHeight="+ mHeight);
 
-                mView.getProperties().setWidth(getX() - mView.getControlView().getX());
-                mView.getProperties().setHeight(getY() - mView.getControlView().getY());
+                if (mWidth >= 0)
+                    mView.getProperties().setWidth(mWidth);
+                if (mHeight >= 0)
+                    mView.getProperties().setHeight(mHeight);
                 mView.regenerateDynamicCoordinates();
                 break;
         }
