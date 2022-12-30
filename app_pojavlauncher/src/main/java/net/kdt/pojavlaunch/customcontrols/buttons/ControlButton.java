@@ -115,11 +115,9 @@ public class ControlButton extends TextView implements ControlInterface {
     }
 
     public void setHighlightingViewVisible(boolean isVisible) {
-        if (mProperties.name.equals("debug")) {
-            mHighlightingCanvasEnabled = isVisible;
-            updateHighlightingViewPosition();
-            mHbv.setVisibility(isVisible ? VISIBLE : GONE);
-        }
+        mHighlightingCanvasEnabled = isVisible;
+        updateHighlightingViewPosition();
+        mHbv.setVisibility(isVisible ? VISIBLE : GONE);
     }
 
     public void setHighlightingViewOpacity(int opacity) {
