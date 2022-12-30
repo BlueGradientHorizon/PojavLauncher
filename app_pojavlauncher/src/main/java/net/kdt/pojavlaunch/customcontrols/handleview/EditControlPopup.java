@@ -433,16 +433,7 @@ public class EditControlPopup {
                 if(internalChanges) return;
                 mCurrentlyEditedButton.getProperties().opacity = mAlphaSeekbar.getProgress()/100f;
                 mCurrentlyEditedButton.getControlView().setAlpha(mAlphaSeekbar.getProgress()/100f);
-                if (mCurrentlyEditedButton.getProperties().opacity < 0.5) {
-                    Log.d("canvasDebug", "onProgressChanged: highlighting canvas enabled");
-                    mCurrentlyEditedButton.enableHighlightingCanvas(true);
-                    mCurrentlyEditedButton.setBackground();
-                }
-                else {
-                    Log.d("canvasDebug", "onProgressChanged: highlighting canvas disabled");
-                    mCurrentlyEditedButton.enableHighlightingCanvas(false);
-                    mCurrentlyEditedButton.setBackground();
-                }
+                mCurrentlyEditedButton.updateHighlightingView();
                 setPercentageText(mAlphaPercentTextView, progress);
             }
 
