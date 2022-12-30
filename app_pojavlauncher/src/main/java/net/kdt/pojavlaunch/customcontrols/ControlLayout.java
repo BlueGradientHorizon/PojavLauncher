@@ -122,8 +122,8 @@ public class ControlLayout extends FrameLayout {
 
 		final ControlDrawer view = new ControlDrawer(this,drawerData == null ? mLayout.mDrawerDataList.get(mLayout.mDrawerDataList.size()-1) : drawerData);
 
+		view.setAlpha(view.getProperties().opacity);
 		if (!mModifiable) {
-			view.setAlpha(view.getProperties().opacity);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}
@@ -147,8 +147,8 @@ public class ControlLayout extends FrameLayout {
 	private void addSubView(ControlDrawer drawer, ControlData controlButton){
 		final ControlSubButton view = new ControlSubButton(this, controlButton, drawer);
 
+		view.setAlpha(view.getProperties().opacity);
 		if (!mModifiable) {
-			view.setAlpha(view.getProperties().opacity);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}else{
