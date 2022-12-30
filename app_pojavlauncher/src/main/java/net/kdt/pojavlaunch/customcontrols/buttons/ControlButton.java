@@ -43,10 +43,11 @@ public class ControlButton extends TextView implements ControlInterface {
         //When a button is created, the width/height has yet to be processed to fit the scaling.
         setProperties(preProcessProperties(properties, layout));
 
-        mHbv.setVisibility(GONE);
-        layout.addView(mHbv);
-
-        updateHighlightingView();
+        if (layout.getModifiable()) {
+            mHbv.setVisibility(GONE);
+            layout.addView(mHbv);
+            updateHighlightingView();
+        }
 
         injectBehaviors();
     }
