@@ -9,6 +9,7 @@ import android.widget.*;
 
 import net.kdt.pojavlaunch.customcontrols.ControlData;
 import net.kdt.pojavlaunch.customcontrols.ControlLayout;
+import net.kdt.pojavlaunch.customcontrols.handleview.HighlightButtonView;
 import net.kdt.pojavlaunch.customcontrols.handleview.*;
 import net.kdt.pojavlaunch.*;
 
@@ -23,7 +24,9 @@ public class ControlButton extends TextView implements ControlInterface {
     private final Paint mRectPaint = new Paint();
     protected ControlData mProperties;
 
-    protected boolean highlightingCanvasEnabled;
+    private final HighlightButtonView mHbv = new HighlightButtonView(getContext());
+
+    protected boolean mHighlightingCanvasEnabled = false;
     protected boolean mIsToggled = false;
     protected boolean mIsPointerOutOfBounds = false;
 
@@ -39,6 +42,11 @@ public class ControlButton extends TextView implements ControlInterface {
 
         //When a button is created, the width/height has yet to be processed to fit the scaling.
         setProperties(preProcessProperties(properties, layout));
+
+        mHbv.setVisibility(GONE);
+        layout.addView(mHbv);
+
+        updateHighlightingView();
 
         injectBehaviors();
     }
@@ -73,18 +81,55 @@ public class ControlButton extends TextView implements ControlInterface {
             setVisibility(isVisible ? VISIBLE : GONE);
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        if (mIsToggled || (!mProperties.isToggle && isActivated())) {
-            canvas.drawRoundRect(0, 0, getWidth(), getHeight(), mProperties.cornerRadius, mProperties.cornerRadius, mRectPaint);
+    private void updateHighlightingViewPosition() {
+        if (mHighlightingCanvasEnabled) {
+            mHbv.setLayoutParams(new FrameLayout.LayoutParams(
+                (int) mProperties.getWidth(), (int) mProperties.getHeight()
+            ));
+            mHbv.setX(mProperties.insertDynamicPos(mProperties.dynamicX));
+            mHbv.setY(mProperties.insertDynamicPos(mProperties.dynamicY));
         }
     }
 
-    public void enableHighlightingCanvas(boolean action) {
-        if (mProperties.name.equals("debug")) {
-            highlightingCanvasEnabled = action;
+    public void updateHighlightingView() {
+        float opacityTriggerValue = 0.6f;
+        int maxHighlightingViewOpacity = 86; // 0.33f
+
+        if (mProperties.opacity <= opacityTriggerValue && !getHighlightingViewVisible())
+            setHighlightingViewVisible(true);
+        else if (mProperties.opacity >= opacityTriggerValue && getHighlightingViewVisible())
+            setHighlightingViewVisible(false);
+
+        if (mProperties.opacity <= opacityTriggerValue) {
+            float opacity = 255 - mProperties.opacity*255/opacityTriggerValue; // 255 is setAlpha()'s max value
+            setHighlightingViewOpacity(opacity < maxHighlightingViewOpacity ?
+                (int) opacity : maxHighlightingViewOpacity);
         }
+
+        setBackground();
+    }
+
+    public boolean getHighlightingViewVisible() {
+        return mHighlightingCanvasEnabled;
+    }
+
+    public void setHighlightingViewVisible(boolean isVisible) {
+        if (mProperties.name.equals("debug")) {
+            mHighlightingCanvasEnabled = isVisible;
+            updateHighlightingViewPosition();
+            mHbv.setVisibility(isVisible ? VISIBLE : GONE);
+        }
+    }
+
+    public void setHighlightingViewOpacity(int opacity) {
+        mHbv.setOpacity(opacity);
+    }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        if (mIsToggled || (!mProperties.isToggle && isActivated()))
+            canvas.drawRoundRect(0, 0, getWidth(), getHeight(), mProperties.cornerRadius, mProperties.cornerRadius, mRectPaint);
     }
 
     public void loadEditValues(EditControlPopup editControlPopup){
@@ -105,6 +150,24 @@ public class ControlButton extends TextView implements ControlInterface {
         getControlLayoutParent().removeView(this);
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_MOVE:
+            case MotionEvent.ACTION_UP:
+                updateHighlightingViewPosition();
+                break;
+        }
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        if (w <= 0 || h <= 0)
+            return;
+        updateHighlightingViewPosition();
+        super.onSizeChanged(w, h, oldw, oldh);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

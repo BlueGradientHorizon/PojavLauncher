@@ -43,14 +43,23 @@ public interface ControlInterface extends View.OnLongClickListener {
     void cloneButton();
 
     void setVisible(boolean isVisible);
+
+    /** Update the highlighting view's position and size according to its button properties */
+    void updateHighlightingView();
+
+    /** Current status of highlighting view */
+    boolean getHighlightingViewVisible();
+
+    /** Enable or disable highlighting view of button if its opacity smaller or greater than 0.5f */
+    void setHighlightingViewVisible(boolean isVisible);
+
+    /** Set level of highlighting view opacity from 0 to 255 */
+    void setHighlightingViewOpacity(int opacity);
+
     void sendKeyPresses(boolean isDown);
 
     /** Load the values and hide non useful forms */
     void loadEditValues(EditControlPopup editControlPopup);
-
-    /** Enable highlighting canvas of button if its opacity < 0.5f */
-    void enableHighlightingCanvas(boolean action);
-
 
     default ControlLayout getControlLayoutParent(){
         return (ControlLayout) getControlView().getParent();
