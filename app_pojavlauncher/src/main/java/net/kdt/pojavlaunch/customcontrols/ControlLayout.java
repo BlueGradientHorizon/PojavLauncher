@@ -207,8 +207,13 @@ public class ControlLayout extends FrameLayout {
 	}
 
 	public void setModifiable(boolean isModifiable) {
-		if(isModifiable){
-		}else {
+		if(isModifiable) {
+			for (ControlInterface button : getButtonChildren())
+				button.setHighlightingViewVisible(true);
+		}
+		else {
+			for (ControlInterface button : getButtonChildren())
+				button.setHighlightingViewVisible(false);
 			if(mModifiable)
 				removeEditWindow();
 		}
