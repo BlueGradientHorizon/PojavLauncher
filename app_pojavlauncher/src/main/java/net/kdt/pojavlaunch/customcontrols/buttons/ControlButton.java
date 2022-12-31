@@ -26,7 +26,7 @@ public class ControlButton extends TextView implements ControlInterface {
 
     private final HighlightButtonView mHbv = new HighlightButtonView(getContext());
 
-    protected boolean mHighlightingCanvasEnabled = false;
+    protected boolean mHighlightingViewEnabled = false;
     protected boolean mIsToggled = false;
     protected boolean mIsPointerOutOfBounds = false;
 
@@ -83,7 +83,7 @@ public class ControlButton extends TextView implements ControlInterface {
     }
 
     private void updateHighlightingViewPosition() {
-        if (mHighlightingCanvasEnabled) {
+        if (mHighlightingViewEnabled) {
             mHbv.setLayoutParams(new FrameLayout.LayoutParams(
                 (int) mProperties.getWidth(), (int) mProperties.getHeight()
             ));
@@ -111,11 +111,11 @@ public class ControlButton extends TextView implements ControlInterface {
     }
 
     public boolean getHighlightingViewVisible() {
-        return mHighlightingCanvasEnabled;
+        return mHighlightingViewEnabled;
     }
 
     public void setHighlightingViewVisible(boolean isVisible) {
-        mHighlightingCanvasEnabled = isVisible;
+        mHighlightingViewEnabled = isVisible;
         updateHighlightingViewPosition();
         mHbv.setVisibility(isVisible ? VISIBLE : GONE);
     }
