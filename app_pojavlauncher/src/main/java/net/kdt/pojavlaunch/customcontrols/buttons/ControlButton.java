@@ -41,18 +41,14 @@ public class ControlButton extends TextView implements ControlInterface {
         setTextColor(Color.WHITE);
         setPadding(4, 4, 4, 4);
         setTextSize(14); // Nullify the default size setting
+        mHbv.setVisibility(GONE);
 
         //setOnLongClickListener(this);
 
         //When a button is created, the width/height has yet to be processed to fit the scaling.
         setProperties(preProcessProperties(properties, layout));
 
-        if (layout.getModifiable()) {
-            mHbv.setVisibility(GONE);
-            layout.addView(mHbv);
-            updateHighlightingView();
-        }
-
+        setHighlightingViewEnabled(true); // Enable by default, disable in add*View() methods of ControlLayout
         injectBehaviors();
     }
 
