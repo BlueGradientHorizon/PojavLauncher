@@ -100,6 +100,7 @@ public class ControlLayout extends FrameLayout {
 
 		view.setAlpha(view.getProperties().opacity); // apply buttons opacity in editor mode too
 		if (!mModifiable) {
+			view.setHighlightingViewEnabled(false);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}
@@ -124,6 +125,7 @@ public class ControlLayout extends FrameLayout {
 
 		view.setAlpha(view.getProperties().opacity);
 		if (!mModifiable) {
+			view.setHighlightingViewEnabled(false);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}
@@ -149,6 +151,7 @@ public class ControlLayout extends FrameLayout {
 
 		view.setAlpha(view.getProperties().opacity);
 		if (!mModifiable) {
+			view.setHighlightingViewEnabled(false);
 			view.setFocusable(false);
 			view.setFocusableInTouchMode(false);
 		}else{
