@@ -44,6 +44,12 @@ public interface ControlInterface extends View.OnLongClickListener {
 
     void setVisible(boolean isVisible);
 
+    /** Get current status of HighlightingView */
+    boolean getHighlightingViewEnabled();
+
+    /** Set new status of HighlightingView */
+    void setHighlightingViewEnabled(boolean isEnabled);
+
     /** Update the highlighting view's position and size according to its button properties */
     void updateHighlightingView();
 

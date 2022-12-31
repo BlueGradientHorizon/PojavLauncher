@@ -96,6 +96,23 @@ public class ControlButton extends TextView implements ControlInterface {
         }
     }
 
+    public boolean getHighlightingViewEnabled() {
+        return mHighlightingViewEnabled;
+    }
+
+    public void setHighlightingViewEnabled(boolean isEnabled) {
+        if (isEnabled) {
+            if (!mHighlightingViewEnabled) {
+                mLayout.addView(mHbv);
+                updateHighlightingView();
+            }
+        }
+        else
+            if (mHbv.getParent() != null)
+                mLayout.removeView(mHbv);
+        mHighlightingViewEnabled = isEnabled;
+    }
+
     public void updateHighlightingView() {
         float opacityTriggerValue = 0.6f;
         int maxHighlightingViewOpacity = 86; // 0.33f
