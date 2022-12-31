@@ -162,8 +162,6 @@ public class ControlButton extends TextView implements ControlInterface {
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        if (w <= 0 || h <= 0)
-            return;
         updateHighlightingViewPosition();
         super.onSizeChanged(w, h, oldw, oldh);
     }
