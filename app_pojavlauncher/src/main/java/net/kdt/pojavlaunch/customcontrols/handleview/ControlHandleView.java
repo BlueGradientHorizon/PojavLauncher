@@ -82,9 +82,9 @@ public class ControlHandleView extends View {
 
                 System.out.println("mWidth="+ mWidth +" mHeight="+ mHeight);
 
-                if (mWidth >= 0)
+                if (mWidth >= 1)
                     mView.getProperties().setWidth(mWidth);
-                if (mHeight >= 0)
+                if (mHeight >= 1)
                     mView.getProperties().setHeight(mHeight);
                 mView.regenerateDynamicCoordinates();
                 break;
