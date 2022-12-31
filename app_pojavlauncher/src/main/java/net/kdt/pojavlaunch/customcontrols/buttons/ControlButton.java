@@ -22,6 +22,7 @@ import static org.lwjgl.glfw.CallbackBridge.sendMouseButton;
 @SuppressLint({"ViewConstructor", "AppCompatCustomView"})
 public class ControlButton extends TextView implements ControlInterface {
     private final Paint mRectPaint = new Paint();
+    private final ControlLayout mLayout;
     protected ControlData mProperties;
 
     private final HighlightButtonView mHbv = new HighlightButtonView(getContext());
@@ -32,6 +33,8 @@ public class ControlButton extends TextView implements ControlInterface {
 
     public ControlButton(ControlLayout layout, ControlData properties) {
         super(layout.getContext());
+        mLayout = layout;
+
         setGravity(Gravity.CENTER);
         setAllCaps(true);
         setTextColor(Color.WHITE);
